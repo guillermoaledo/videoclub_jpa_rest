@@ -8,14 +8,18 @@ import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
-  declarations: [
-    IndexComponent,
+    declarations: [
+        IndexComponent,
+        CreateComponent,
+        EditComponent
+    ],
+  exports: [
     CreateComponent,
-    EditComponent
+    IndexComponent
   ],
-  imports: [
-    CommonModule,
-    CategoriaRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        CategoriaRoutingModule
+    ]
 })
 export class CategoriaModule { }
