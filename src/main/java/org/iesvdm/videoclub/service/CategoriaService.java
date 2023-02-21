@@ -5,7 +5,9 @@ import org.iesvdm.videoclub.exception.CategoriaNotFoundException;
 import org.iesvdm.videoclub.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoriaService {
@@ -16,7 +18,9 @@ public class CategoriaService {
 
     public List<Categoria> all() { return this.categoriaRepository.findAll(); }
 
-    public Categoria save(Categoria categoria) { return this.categoriaRepository.save(categoria); }
+    public Categoria save(Categoria categoria) {
+        categoria.setUltimaActualizacion(new Date());
+        return this.categoriaRepository.save(categoria); }
 
     public  Categoria one(Long id) {
         return this.categoriaRepository.findById(id)
@@ -24,6 +28,8 @@ public class CategoriaService {
     }
 
     public Categoria replace(Long id, Categoria categoria) {
+
+        categoria.setUltimaActualizacion(new Date());
 
         return this.categoriaRepository.findById(id).map(
                 p -> (id.equals(categoria.getIdCategoria()) ? this.categoriaRepository.save(categoria) : null))
@@ -40,4 +46,5 @@ public class CategoriaService {
                 .orElseThrow(() -> new CategoriaNotFoundException(id));
 
     }
+
 }
