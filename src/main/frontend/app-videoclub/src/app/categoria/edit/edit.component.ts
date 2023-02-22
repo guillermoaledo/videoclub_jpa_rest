@@ -12,7 +12,7 @@ import {Categoria} from "../categoria";
 export class EditComponent implements OnInit {
 
   id: number = 0;
-  categoria: Categoria = { idCategoria: 0, nombre: "VOID", ultimaActualizacion: "1970-01-01"};
+  categoria: Categoria = { idCategoria: 0, nombre: "VOID", ultimaActualizacion: "1970-01-01", countPeliculas: 0};
   form: FormGroup =   new FormGroup({
     categoria:  new FormControl('', [ Validators.required, Validators.pattern('^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ \-\']+') ])
   });

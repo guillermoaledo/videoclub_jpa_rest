@@ -28,8 +28,6 @@ public class CategoriaService {
 
     }
 
-    public Integer contarPelicula(int id) { return this.categoriaRepository.queryContarPeliculas(id); }
-
     public Categoria save(Categoria categoria) {
         categoria.setUltimaActualizacion(new Date());
         return this.categoriaRepository.save(categoria); }

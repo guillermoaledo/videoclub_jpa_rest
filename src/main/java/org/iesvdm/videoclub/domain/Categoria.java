@@ -2,6 +2,7 @@ package org.iesvdm.videoclub.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
@@ -29,18 +30,14 @@ public class Categoria {
     private String nombre;
 
     @ManyToMany(
-            mappedBy = "categorias")
+            mappedBy = "categorias", fetch = FetchType.EAGER)
     @ToString.Exclude
-    @JsonIgnore
     Set<Pelicula> peliculas = new HashSet<>();
 
     @Column(name = "ultima_actualizacion")
     @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",  shape = JsonFormat.Shape.STRING)
     private Date ultimaActualizacion;
 
-    public int countPeliculas(){
-        return this.peliculas.size();
-    }
-
+    private int countPeliculas = peliculas.size();
 
 }

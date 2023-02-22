@@ -14,9 +14,5 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
     public List<Categoria> findAllByNombreContainingIgnoreCaseOrderByNombreDesc(String ordenar);
 
-
-    @Query(value = "select count(P) from Pelicula P join P.categorias C where C.idCategoria = :idCategoria")
-    public Integer queryContarPeliculas(int idCategoria);
-
 }
 
