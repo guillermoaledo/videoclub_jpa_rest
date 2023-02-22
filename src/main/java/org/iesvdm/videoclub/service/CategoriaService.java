@@ -48,7 +48,7 @@ public class CategoriaService {
                 .orElseThrow(() -> new CategoriaNotFoundException(id));
 
 
-    }
+    }//
 
     public void delete(Long id) {
 
