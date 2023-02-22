@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 //Si utilizo @OneToMany(FetchType.LAZY) además debo usar
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Idioma {
@@ -35,9 +33,11 @@ public class Idioma {
 
     @OneToMany(mappedBy = "idioma")
     @JsonIgnore
+    @ToString.Exclude
     private List<Pelicula> peliculasIdioma;
 
     @OneToMany(mappedBy = "idiomaOriginal")
     @JsonIgnore
+    @ToString.Exclude
     private List<Pelicula> peliculasIdiomaOriginal;
 }

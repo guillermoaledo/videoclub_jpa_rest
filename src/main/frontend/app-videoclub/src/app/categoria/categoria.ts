@@ -4,6 +4,8 @@ export interface Categoria {
 
   nombre: string;
 
+  countPeliculas: number;
+
   ultimaActualizacion: string
 
 }

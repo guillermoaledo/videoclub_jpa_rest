@@ -30,10 +30,7 @@ public class CategoriaController {
     @GetMapping(value = {"","/"})
     public List<Categoria> all(@RequestParam("buscar")Optional<String> buscarOptional
     ,@RequestParam("ordenar") Optional<String> ordenarOptional) {
-        log.info("Accediendo a todas las categorias con filtro buscar: %S y ordenar: %S",
-                buscarOptional.orElse("VOID"),
-                ordenarOptional.orElse("VOID"));
-        return this.categoriaService.all();
+        return this.categoriaService.allByQueryFiltersStream(buscarOptional, ordenarOptional);
     }
 
     @PostMapping({"","/"})

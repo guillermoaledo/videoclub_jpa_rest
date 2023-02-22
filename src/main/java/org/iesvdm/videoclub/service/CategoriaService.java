@@ -18,6 +18,18 @@ public class CategoriaService {
 
     public List<Categoria> all() { return this.categoriaRepository.findAll(); }
 
+    public List<Categoria> allByQueryFiltersStream(Optional<String> nombre, Optional<String> orden) {
+        if(orden.get().equals("desc")) {
+            return this.categoriaRepository.findAllByNombreContainingIgnoreCaseOrderByNombreDesc(nombre.get());
+        } else {
+            return this.categoriaRepository.findAllByNombreContainingIgnoreCaseOrderByNombre(nombre.get());
+
+        }
+
+    }
+
+    public Integer contarPelicula(int id) { return this.categoriaRepository.queryContarPeliculas(id); }
+
     public Categoria save(Categoria categoria) {
         categoria.setUltimaActualizacion(new Date());
         return this.categoriaRepository.save(categoria); }

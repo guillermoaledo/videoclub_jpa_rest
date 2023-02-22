@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,6 +19,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Pelicula {
 
     @Id
@@ -56,7 +54,7 @@ public class Pelicula {
     @Column(name = "caracteristicas_especiales")
     private String caracteristicasEspeciales;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "pelicula_categoria",
             joinColumns = @JoinColumn(name = "id_pelicula", referencedColumnName = "id_pelicula"),
