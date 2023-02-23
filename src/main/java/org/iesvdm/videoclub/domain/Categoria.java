@@ -32,12 +32,15 @@ public class Categoria {
     @ManyToMany(
             mappedBy = "categorias", fetch = FetchType.EAGER)
     @ToString.Exclude
+    @JsonIgnore
     Set<Pelicula> peliculas = new HashSet<>();
 
     @Column(name = "ultima_actualizacion")
     @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",  shape = JsonFormat.Shape.STRING)
     private Date ultimaActualizacion;
 
-    private int countPeliculas = peliculas.size();
+    public int getConteo() {
+        return this.peliculas.size();
+    }
 
 }

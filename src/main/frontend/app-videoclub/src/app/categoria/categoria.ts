@@ -4,7 +4,7 @@ export interface Categoria {
 
   nombre: string;
 
-  countPeliculas: number;
+  conteo: number;
 
   ultimaActualizacion: string
 

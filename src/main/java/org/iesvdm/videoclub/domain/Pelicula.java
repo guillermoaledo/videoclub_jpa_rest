@@ -59,7 +59,6 @@ public class Pelicula {
             name = "pelicula_categoria",
             joinColumns = @JoinColumn(name = "id_pelicula", referencedColumnName = "id_pelicula"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria"))
-    @JsonIgnore
     Set<Categoria> categorias = new HashSet<>();
 
     @Column(name = "ultima_actualizacion")
