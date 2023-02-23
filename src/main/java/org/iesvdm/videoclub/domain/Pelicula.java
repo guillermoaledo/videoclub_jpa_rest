@@ -1,5 +1,6 @@
 package org.iesvdm.videoclub.domain;
 
+//@Embedded: con esto, un objeto @Embedddable se inserta como campos adicionales en la tabla, al estilo de una composición
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,6 +1,7 @@
 package org.iesvdm.videoclub.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.iesvdm.videoclub.domain.Categoria;
 import org.iesvdm.videoclub.domain.Pelicula;
 import org.iesvdm.videoclub.service.PeliculaService;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -22,13 +24,13 @@ public class PeliculaController {
         this.peliculaService = peliculaService;
     }
 
-    @GetMapping(value = {"","/"}, params = {"!pagina", "!tamanio"})
+    @GetMapping(value = {"","/"}, params = {"!pagina", "!tamanio", "!buscar", "!ordenar"})
     public List<Pelicula> all() {
         log.info("Accediendo a todas las películas");
         return this.peliculaService.all();
     }
 
-    @GetMapping(value = {"","/"})
+    @GetMapping(value = {"","/"}, params = {"!buscar", "!ordenar"})
     public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "0") int pagina
         , @RequestParam(value = "tamanio", defaultValue = "3") int tamanio) {
 
@@ -37,6 +39,21 @@ public class PeliculaController {
         return ResponseEntity.ok(responseAll);
     }
 
+    @GetMapping(value = {"","/"}, params = {"!pagina", "!tamanio"})
+    public List<Pelicula> all(@RequestParam("buscar") Optional<String> buscarOptional
+            , @RequestParam("ordenar") Optional<String> ordenarOptional) {
+        return this.peliculaService.allByQueryFiltersStream(buscarOptional, ordenarOptional);
+    }
+
+    @GetMapping(value = {"","/"})
+    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "0") int pagina
+            , @RequestParam(value = "tamanio", defaultValue = "3") int tamanio, @RequestParam("buscar") Optional<String> buscarOptional
+            , @RequestParam("ordenar") Optional<String> ordenarOptional) {
+
+        Map<String, Object> responseAll = this.peliculaService.all(pagina, tamanio);
+
+        return ResponseEntity.ok(responseAll);
+    }
 
     @PostMapping({"","/"})
     public Pelicula newPelicula(@RequestBody Pelicula pelicula) {

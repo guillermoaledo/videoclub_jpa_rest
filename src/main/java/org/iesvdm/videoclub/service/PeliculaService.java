@@ -1,5 +1,6 @@
 package org.iesvdm.videoclub.service;
 
+import org.iesvdm.videoclub.domain.Categoria;
 import org.iesvdm.videoclub.domain.Pelicula;
 import org.iesvdm.videoclub.exception.PeliculaNotFoundException;
 import org.iesvdm.videoclub.repository.PeliculaRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class PeliculaService {
@@ -40,6 +42,31 @@ public class PeliculaService {
         response.put("totalPages", pageAll.getTotalPages());
 
         return response;
+    }
+    public Map<String, Object> allBuscarOrdenar(int pagina, int tamanio, Optional<String> nombre, Optional<String> orden) {
+
+        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("idPelicula").ascending());
+
+        Page<Pelicula> pageAll = this.peliculaRepository.findAll(paginado);
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("peliculas", pageAll.getContent());
+        response.put("currentPage", pageAll.getNumber());
+        response.put("totalItems", pageAll.getTotalElements());
+        response.put("totalPages", pageAll.getTotalPages());
+
+        return response;
+    }
+
+    public List<Pelicula> allByQueryFiltersStream(Optional<String> nombre, Optional<String> orden) {
+        if(orden.get().equals("desc")) {
+            return this.peliculaRepository.findAllByTituloContainingIgnoreCaseOrderByTituloDesc(nombre.get());
+        } else {
+            return this.peliculaRepository.findAllByTituloContainingIgnoreCaseOrderByTitulo(nombre.get());
+
+        }
+
     }
 
     public Pelicula save(Pelicula pelicula) {
